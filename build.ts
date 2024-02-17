@@ -1,4 +1,5 @@
-import { toSSG } from "hono/bun";
-import app from "./src/index";
+import { toSSG } from 'hono/ssg';
+import fs from 'fs/promises';
+import app from './src/index';
 
-toSSG(app);
+toSSG(app, fs);
