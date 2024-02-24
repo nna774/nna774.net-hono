@@ -20,7 +20,7 @@ app.use('*', async (c, next) => {
 });
 
 app.get('/', (c) => {
-  return c.render(<h1>hao</h1>, { title: 'Hello, World!' });
+  return c.render(<h1>hao</h1>, { title: 'Hello, World!', path: c.req.path });
 });
 
 app.get('/markdown.html', async (c) => {

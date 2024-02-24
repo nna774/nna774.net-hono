@@ -1,0 +1,100 @@
+header{
+    background-color: #8f8;
+}
+
+#itWorks {
+    text-align: center;
+}
+
+#itWorks:after {
+    text-align: left;
+    font-size: small;
+    color: purple;
+    font-family: monospace;
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+    white-space: pre;
+    content: ";; This buffer is for notes you don't want to save, and for Lisp evaluation.\A;; If you want to create a file, visit that file with C-x C-f,\A;; then enter the text in that file's own buffer.";
+    display: block;
+}
+
+body {
+    background-color: #9f9;
+}
+
+#mainWrap {
+    background-color: #afa;
+}
+
+#pageName{
+    color: black;
+}
+
+section.wrap {
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    padding: 5px;
+}
+
+footer {
+    width: auto;
+
+    background-color: #afa;
+
+    border-top: double;
+    border-color: #111;
+
+    margin-top: 30px;
+    padding-top: 5px;
+}
+
+#hostOn, #pageDetail, #_commitHash, #_buildDate {
+    font-size: small;
+    color: gray;
+}
+
+footer a {
+    color: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+section.select {
+  background-color: #cfc;
+  padding-bottom: 0.5em;
+}
+
+/* ブログと共通 */
+#sideBar h2:before, .glider h3:before, dt:before { // 新デザイン移行完了の暁にはdt:beforeを消す。
+  content: url("/img/glider20.png");
+  content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAAP1BMVEUAAAAWGQeUqTAVGAclOxRjnDWVqjA4TxldkjJoozeeuTVvpTZnozdnojeUqjA3ThlckjIqMA2ZrzEpLg21zzqYTqELAAAAUUlEQVQY042QSwrAUAgD5wCdnfc/azev+MHCcxMYDIkCAAEKQZ1AdUJVvYGrvQfFMrlZDBNq0mglbuBqP0E/lU7rInz3VeF8osmET65O+xb0AnGlDAhA5X2PAAAAAElFTkSuQmCC");
+  padding-right: 5px;
+}
+
+.piet h3:before {
+  content: url("/img/piet.png");
+  content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUBAMAAAB/pwA+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAqUExURQAAwAAA/wDAAAD/AMAAAMDAAMD///8AAP8A///AwP/A////AP//wP///6lRbiQAAABmSURBVAhbYygvL5k5/XC598zpDEBmWRoI5DCUp6WVI5jpZXBmWhmaaDZCbRJDuXs5xIQUEDMNxkxLQ2IqJQoKpnVkojHTEtMSMzo6IaJITDS16VAFaWkdOQjRZBQF14CyuVyl7uUAM8NOHM17Mm8AAAAASUVORK5CYII=");
+  padding-right: 5px;
+}
+
+.openyo h3:before{
+  content: url("/img/OpenYo-20x20.png");
+  content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUAQMAAAC3R49OAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAADUExURSZ8p1CCBzkAAAALSURBVAgdY6AyAAAAUAAB714l7wAAAABJRU5ErkJggg==");
+  padding-right: 5px;
+}
+
+article, section {
+    font-size: 16px;
+}
+
+.row-eq-height {
+    display: flex;
+    flex-wrap: wrap;
+}
