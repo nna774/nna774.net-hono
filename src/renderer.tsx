@@ -6,15 +6,25 @@ import { PageDetails } from './partials/page_details';
 
 const baseURI = 'https://nna774.net';
 
+const myFooter = (canonical: string) => (
+  <>
+    <footer>
+      <Address />
+      <HostOn />
+      <PageDetails canonical={canonical} />
+    </footer>
+    <img src='https://nna774.net/hstspng.png' alt='' style='display:none;' />
+  </>
+);
+
 export const renderer = jsxRenderer(
-  ({ children, title, path, amp }) => {
+  ({ children, title, path }) => {
     return (
       <html lang='ja' prefix='og: http://ogp.me/ns#'>
         <head>
           <meta charset='UTF-8' />
           <title>{title || 'いっと☆わーくす！'}</title>
           <link rel='canonical' href={baseURI + path} />
-          {amp && <link rel='amphtml' href={baseURI + '/amp' + path} />}
 
           <link href='/css/default.css' rel='stylesheet' />
           <link href='/css/bootstrap.css' rel='stylesheet' />
