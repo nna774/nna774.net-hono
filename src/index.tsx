@@ -29,9 +29,15 @@ app.get('/markdown.html', async (c) => {
   return c.render(html);
 })
 
+type Metadata = {
+  title: string;
+};
+
 app.get('/blog/*', async (c) => {
   const md = await fs.readFile('./md/test.md', 'utf-8');
-  const { metadata, content }: { metadata: any, content: string } = parseMD(md);
+  const res = parseMD(md);
+  const metadata: Metadata = res.metadata as Metadata;
+  const content: string = res.content;
   const h = await marked(content);
   return c.render(raw(h), { title: metadata.title });
 })
