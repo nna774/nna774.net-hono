@@ -21,13 +21,13 @@ app.use('*', async (c, next) => {
 
 app.get('/', (c) => {
   return c.render(<h1>hao</h1>, { title: 'Hello, World!' });
-})
+});
 
 app.get('/markdown.html', async (c) => {
   const md = await fs.readFile('./md/test.md', 'utf-8');
   const html = await marked(md);
   return c.render(html);
-})
+});
 
 type Metadata = {
   title: string;
@@ -40,7 +40,7 @@ app.get('/blog/*', async (c) => {
   const content: string = res.content;
   const h = await marked(content);
   return c.render(raw(h), { title: metadata.title });
-})
+});
 
 
 export default app;
