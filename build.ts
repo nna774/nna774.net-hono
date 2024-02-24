@@ -12,6 +12,5 @@ const files = await glob('./src/blog/**/*');
 files.map(async (file) => {
   if (!file.endsWith('.md') && (await fs.stat(file)).isFile()) {
     fs.cp(file, file.replace('src/blog/', outDir + '/blog/'));
-    console.log(file, file.replace('src/blog/', outDir + '/blog/'));
   }
 });
