@@ -8,6 +8,8 @@ import { glob } from 'glob';
 
 import { renderer, blogRenderer } from './renderer';
 
+import { BlogArticle, BlogType, BlogInfoType } from './partials/blog';
+
 type Page = {
   title: string;
   content: string;
@@ -16,6 +18,7 @@ type Page = {
 type Metadata = {
   title: string;
   date?: number;
+  tags?: string[];
 };
 
 type MetadataString = { [key in keyof Metadata]: string };
@@ -24,14 +27,16 @@ const parse = (v: string): { metadata: Metadata, content: string } => {
   const res = parseMD(v);
   const metadata: MetadataString = res.metadata as MetadataString;
   const content: string = res.content;
+  const tags = metadata.tags ? metadata.tags.toString().split(',').map((t) => t.trim()) : []; // 2048 みたいなタグがtoStringしないと爆発していた。
   return {
     metadata: {
       title: metadata.title,
-      date: metadata.date ? Date.parse(metadata.date) : undefined
+      date: metadata.date ? Date.parse(metadata.date) : undefined,
+      tags,
     },
     content
   };
-}
+};
 
 const page = async (path: string): Promise<Page> => {
   const file = await fs.readFile('./src/pages/' + path, 'utf-8');
@@ -62,28 +67,52 @@ pages.map((path) => {
 
 // define blog article routes
 const blogPaths = await glob('./src/blog/**/*.md');
-const blog = await Promise.all(blogPaths.map(async (path) => {
-  const md = await fs.readFile(path, 'utf-8');
-  const { metadata, content } = parse(md);
-  const h = await marked(content);
-  const d = path.substring(0, 10); // 2024/01/01 like
-  console.log(d);
-  console.log(metadata.date);
-  return {
-    path: path.substring(4, path.length - 3), // remove prefix src and suffix .md
-    title: metadata.title,
-    content: h,
-    date: new Date(metadata.date || Date.parse(d))
-  }
-}));
-console.log(blog);
+const blog = (await Promise.all(
+  blogPaths.map(async (path): Promise<BlogType> => {
+    const md = await fs.readFile(path, 'utf-8');
+    const { metadata, content } = parse(md);
+    const h = await marked(content);
+    const d = path.substring(9, 19); // 2024/01/01 like
+    return {
+      path: '/' + path.substring(4, path.length - 3), // remove prefix src and suffix .md
+      title: metadata.title,
+      content: h,
+      date: new Date(metadata.date || Date.parse(d)),
+      tags: metadata.tags,
+    };
+  }))).sort((a, b) => b.date.getTime() - a.date.getTime());
 blog.map((article) => {
   app.get(article.path, (c) => {
-    return c.render(raw(article.content), { title: article.title });
+    return c.render(<BlogArticle props={article} />, { title: article.title, path: c.req.path });
   });
 });
 
+const info = (blog: BlogType[]): BlogInfoType => {
+  return {
+    blog: blog,
+    tags: blog.map((b) => b.tags || []).flat().reduce((acc, tag) => {
+      const v = acc.get(tag);
+      if (!v) {
+        acc.set(tag, 1);
+      } else {
+        acc.set(tag, v + 1);
+      }
+      return acc;
+    }, new Map<string, number>()),
+  };
+};
+
+const blogInfo = info(blog);
+
 // define blog system routes
-// TODO:
+app.get('/blog/', (c) => {
+  const news = blog.slice(0, 10);
+  return c.render(
+    <>
+      {news.map((n) => <BlogArticle props={{ individual: false, ...n }} />)}
+    </>
+  , { title: 'Blog', blogInfo });
+});
+// TODO: いっぱいある
 
 export default app;

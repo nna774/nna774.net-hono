@@ -3,6 +3,7 @@ import { jsxRenderer } from 'hono/jsx-renderer';
 import { Address } from './partials/address';
 import { HostOn } from './partials/host_on';
 import { PageDetails } from './partials/page_details';
+import { BlogBody } from './partials/blog';
 
 const baseURI = 'https://nna774.net';
 
@@ -39,12 +40,7 @@ export const renderer = jsxRenderer(
           <main role='main' class='row'>
             {children}
           </main>
-          <footer>
-            <Address />
-            <HostOn />
-            <PageDetails canonical={baseURI + path} />
-          </footer>
-          <img src='https://nna774.net/hstspng.png' alt='' style='display:none;' />
+          <myFooter canonical={baseURI + path} />
         </body>
       </html>
     );
@@ -55,17 +51,22 @@ export const renderer = jsxRenderer(
 );
 
 export const blogRenderer = jsxRenderer(
-  ({ children, title }) => {
+  ({ children, title, path, blogInfo }) => {
     return (
-      <html>
+      <html lang='ja' prefix='og: http://ogp.me/ns#'>
         <head>
-          <link href='/static/style.css' rel='stylesheet' />
-          <title>{title}</title>
-        </head>
-        <body>
-          haohaohaohao<br />
+          <meta charset='UTF-8' />
+          <title>{title || 'いっと☆わーくす！'}</title>
+          <link rel='canonical' href={baseURI + path} />
 
-          {children}
+          <link href='/css/default.css' rel='stylesheet' />
+          <link href='/css/blog.css' rel='stylesheet' />
+          <link href='/css/bootstrap.css' rel='stylesheet' />
+        </head>
+
+        <body class='container-fluid'>
+          <BlogBody blogInfo={blogInfo!} children={children!} />
+          <myFooter canonical={baseURI + path} />
         </body>
       </html>
     );
