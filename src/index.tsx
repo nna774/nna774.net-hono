@@ -48,7 +48,8 @@ app.use('*', async (c, next) => {
   }
   return renderer(c, next);
 });
-app.get('/css/*', serveStatic({ root: './public' }))
+app.get('/css/*', serveStatic({ root: './public' }));
+app.get('/img/*', serveStatic({ root: './public' }));
 
 // define html pages routes
 const pages = ['index.html']; // TODO: grobにする。
