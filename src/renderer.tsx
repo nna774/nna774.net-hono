@@ -16,7 +16,8 @@ export const renderer = jsxRenderer(
           <link rel='canonical' href={baseURI + path} />
           {amp && <link rel='amphtml' href={baseURI + '/amp' + path} />}
 
-          <link href='/static/default.css' rel='stylesheet' />
+          <link href='/css/default.css' rel='stylesheet' />
+          <link href='/css/bootstrap.css' rel='stylesheet' />
         </head>
 
         <body class='container-fluid'>
