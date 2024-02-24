@@ -48,7 +48,7 @@ export const renderer2 = jsxRenderer(
     return (
       <html>
         <head>
-          <link href="/static/style.css" rel="stylesheet" />
+          <link href='/static/style.css' rel='stylesheet' />
           <title>{title}</title>
         </head>
         <body>
