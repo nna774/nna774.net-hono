@@ -19,7 +19,7 @@ export const renderer = jsxRenderer(
           <link href='/static/default.css' rel='stylesheet' />
         </head>
 
-        <body class='<%= page_classes %> container-fluid'>
+        <body class='container-fluid'>
           <header class='row'>
             <div class='col-md-12'>
               <h1 id='itWorks'><a href='/'>いっと☆わーくす！</a></h1>
