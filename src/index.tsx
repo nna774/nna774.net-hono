@@ -108,27 +108,34 @@ app.get('/blog/', (c) => {
     </BlogBody>
   , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path });
 });
-app.get('/blog/tags/:name/', (c) => {
-  const tag = c.req.param('name');
-  const articles = blog.filter((a) => a.tags?.map((t) => t.toLowerCase()).includes(tag));
-  return c.render(
-    <BlogLinks blogInfo={blogInfo} canonical={canonical(c)} articles={articles} title={`Articles tagged ${tag}(${articles.length})`} />
-  , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path });
+
+// ssgのためには、存在するのを教えてあげないといけないので /blog/tags/:name/ のように書けない。
+blogInfo.tags.forEach((_, tag) => {
+  app.get(`/blog/tags/${tag}/`, (c) => {
+    const articles = blog.filter((a) => a.tags?.map((t) => t.toLowerCase()).includes(tag));
+    return c.render(
+      <BlogLinks blogInfo={blogInfo} canonical={canonical(c)} articles={articles} title={`Articles tagged ${tag}(${articles.length})`} />
+    , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path });
+  });
 });
-app.get('/blog/:year{[0-9]+}/', (c) => {
-  const year = c.req.param('year');
-  const articles = blog.filter((a) => a.date.getFullYear() === parseInt(year));
-  return c.render(
-    <BlogLinks blogInfo={blogInfo} canonical={canonical(c)} articles={articles} title={`Articles in ${year}(${articles.length})`} />
-  , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path });
-});
-app.get('/blog/:year{[0-9]+}/:month{[0-9]+}/', (c) => {
-  const year = c.req.param('year');
-  const month = c.req.param('month');
-  const articles = blog.filter((a) => a.date.getFullYear() === parseInt(year) && a.date.getMonth() + 1 === parseInt(month));
-  return c.render(
-    <BlogLinks blogInfo={blogInfo} canonical={canonical(c)} articles={articles} title={`Articles in ${year}/${month}(${articles.length})`} />
-  , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path });
+blogInfo.monthly.forEach((v, year) => {
+  app.get(`/blog/${year}/`, (c) => {
+    const articles = blog.filter((a) => a.date.getFullYear() === year);
+    return c.render(
+      <BlogLinks blogInfo={blogInfo} canonical={canonical(c)} articles={articles} title={`Articles in ${year}(${articles.length})`} />
+    , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path });
+  });
+  v.forEach((_, month) => {
+    const padding = (n: number, digit: number): string => { // なんとかしてくれ
+      return ('0'.repeat(digit) + n).slice(-digit);
+    };
+    app.get(`/blog/${year}/${padding(month, 2)}/`, (c) => {
+      const articles = blog.filter((a) => a.date.getFullYear() === year && a.date.getMonth() + 1 === month);
+      return c.render(
+        <BlogLinks blogInfo={blogInfo} canonical={canonical(c)} articles={articles} title={`Articles in ${year}/${month}(${articles.length})`} />
+      , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path });
+    });
+  });
 });
 // TODO: page
 

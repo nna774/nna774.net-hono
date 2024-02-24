@@ -5,7 +5,7 @@ import app from './src/index';
 
 const outDir = './dist';
 
-await toSSG(app, fs, {dir: outDir});
+console.log(await toSSG(app, fs, {dir: outDir}));
 
 // blogの付属品をコピーする。
 const files = await glob('./src/blog/**/*');
