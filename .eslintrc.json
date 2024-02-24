@@ -17,6 +17,8 @@
   },
   "globals": {},
   "rules": {
-    "semi":  ["error", "always"]
+    "semi":  ["error", "always"],
+    "quotes": ["error", "single"],
+    "jsx-quotes": ["error", "prefer-single"]
   }
 }
