@@ -26,7 +26,7 @@ const dateFormater = (d: Date): string => {
 };
 
 const tag_path = (tag: string): string => {
-  return '/blog/tag/' + tag.toLowerCase() + '/';
+  return '/blog/tags/' + tag.toLowerCase() + '/';
 };
 
 const ArticleHeader = ({props, individual}: {props: BlogType, individual?: boolean}) => (
@@ -130,7 +130,7 @@ const BlogSidebar = ({blogInfo}: {blogInfo: BlogInfoType}) => (
           {blogInfo.blog.slice(0, 10).map((article) => <li><ArticleLink article={article} /></li>)}
         </ol>
       } />
-      <SideBarChild name='Tags' to={'/blog/tag/'} children={
+      <SideBarChild name='Tags' to={'/blog/tags/'} children={
         <ul>
           { [...blogInfo.tags || []].sort((a, b) => a[1] - b[1]).reverse().map(([tag, count]) =>
             <li><a href={tag_path(tag)}>{tag}</a> ({count})</li>
@@ -198,6 +198,15 @@ export const BlogBody = ({blogInfo, canonical, children}: PropsWithChildren<{blo
     </>
   );
 };
+
+export const BlogLinks = ({blogInfo, canonical, articles, title}: {blogInfo: BlogInfoType, canonical: string, articles: BlogType[], title: string}) => (
+  <BlogBody blogInfo={blogInfo} canonical={canonical}>
+    <h1>{title}</h1>
+    <ul>
+      {articles.map((a) => <li><ArticleLink article={a}></ArticleLink></li>)}
+    </ul>
+  </BlogBody>
+);
 
 export const makeInfo = (blog: BlogType[]): BlogInfoType => {
   return {

@@ -8,7 +8,7 @@ import { glob } from 'glob';
 
 import { renderer, blogRenderer, baseURI } from './renderer';
 
-import { BlogBody, BlogArticle, BlogType, makeInfo } from './partials/blog';
+import { BlogBody, BlogArticle, BlogType, makeInfo, BlogLinks } from './partials/blog';
 
 type Page = {
   title: string;
@@ -108,6 +108,28 @@ app.get('/blog/', (c) => {
     </BlogBody>
   , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path });
 });
-// TODO: いっぱいある
+app.get('/blog/tags/:name/', (c) => {
+  const tag = c.req.param('name');
+  const articles = blog.filter((a) => a.tags?.map((t) => t.toLowerCase()).includes(tag));
+  return c.render(
+    <BlogLinks blogInfo={blogInfo} canonical={canonical(c)} articles={articles} title={`Articles tagged ${tag}(${articles.length})`} />
+  , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path });
+});
+app.get('/blog/:year{[0-9]+}/', (c) => {
+  const year = c.req.param('year');
+  const articles = blog.filter((a) => a.date.getFullYear() === parseInt(year));
+  return c.render(
+    <BlogLinks blogInfo={blogInfo} canonical={canonical(c)} articles={articles} title={`Articles in ${year}(${articles.length})`} />
+  , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path });
+});
+app.get('/blog/:year{[0-9]+}/:month{[0-9]+}/', (c) => {
+  const year = c.req.param('year');
+  const month = c.req.param('month');
+  const articles = blog.filter((a) => a.date.getFullYear() === parseInt(year) && a.date.getMonth() + 1 === parseInt(month));
+  return c.render(
+    <BlogLinks blogInfo={blogInfo} canonical={canonical(c)} articles={articles} title={`Articles in ${year}/${month}(${articles.length})`} />
+  , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path });
+});
+// TODO: page
 
 export default app;
