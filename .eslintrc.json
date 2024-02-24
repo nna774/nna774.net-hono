@@ -17,6 +17,6 @@
   },
   "globals": {},
   "rules": {
-
+    "semi":  ["error", "always"]
   }
 }
