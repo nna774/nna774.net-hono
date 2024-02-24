@@ -1,5 +1,5 @@
 import { raw } from 'hono/html';
-import { Child } from 'hono/jsx';
+import { Child, PropsWithChildren } from 'hono/jsx';
 
 export type BlogType = {
   individual?: boolean;
@@ -115,7 +115,7 @@ const BlogSidebar = ({blogInfo}: {blogInfo: BlogInfoType}) => (
       } />
       <SideBarChild name='Tags' to={'/blog/tag/'} children={
         <ul>
-          { [...blogInfo?.tags || []].sort((a, b) => a[1] - b[1]).reverse().map(([tag, count]) =>
+          { [...blogInfo.tags || []].sort((a, b) => a[1] - b[1]).reverse().map(([tag, count]) =>
             <li><a href={tag_path(tag)}>{tag}</a> ({count})</li>
           )}
         </ul>
@@ -156,17 +156,33 @@ const BlogSidebar = ({blogInfo}: {blogInfo: BlogInfoType}) => (
   </nav>
 );
 
-export const BlogBody = ({blogInfo, children}: {blogInfo: BlogInfoType, children: Child}) => {
+export const BlogBody = ({blogInfo, canonical, children}: PropsWithChildren<{blogInfo: BlogInfoType, canonical: string}>) => {
   return (
-    <>
+    <body class='container-fluid'>
       <BlogHeader />
       <div id='wrap' class='row'>
         <main role='main' class='col-lg-10 col-lg-push-2 col-md-9 col-md-push-3'>
           {children}
         </main>
 
-        <BlogSidebar blogInfo={blogInfo!} />
+        <BlogSidebar blogInfo={blogInfo} />
       </div>
-    </>
+      <myFooter canonical={canonical} />
+    </body>
   );
+};
+
+export const makeInfo = (blog: BlogType[]): BlogInfoType => {
+  return {
+    blog: blog,
+    tags: blog.map((b) => b.tags || []).flat().reduce((acc, tag) => {
+      const v = acc.get(tag);
+      if (!v) {
+        acc.set(tag, 1);
+      } else {
+        acc.set(tag, v + 1);
+      }
+      return acc;
+    }, new Map<string, number>()),
+  };
 };

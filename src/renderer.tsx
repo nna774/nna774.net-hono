@@ -51,7 +51,7 @@ export const renderer = jsxRenderer(
 );
 
 export const blogRenderer = jsxRenderer(
-  ({ children, title, path, blogInfo }) => {
+  ({ children, title, path }) => {
     return (
       <html lang='ja' prefix='og: http://ogp.me/ns#'>
         <head>
@@ -64,10 +64,7 @@ export const blogRenderer = jsxRenderer(
           <link href='/css/bootstrap.css' rel='stylesheet' />
         </head>
 
-        <body class='container-fluid'>
-          <BlogBody blogInfo={blogInfo!} children={children!} />
-          <myFooter canonical={baseURI + path} />
-        </body>
+        {children}
       </html>
     );
   },

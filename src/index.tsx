@@ -8,7 +8,9 @@ import { glob } from 'glob';
 
 import { renderer, blogRenderer } from './renderer';
 
-import { BlogArticle, BlogType, BlogInfoType } from './partials/blog';
+import { BlogBody, BlogArticle, BlogType, makeInfo } from './partials/blog';
+import { Context } from 'hono/jsx';
+import { BlankInput } from 'hono/types';
 
 type Page = {
   title: string;
@@ -81,37 +83,27 @@ const blog = (await Promise.all(
       tags: metadata.tags,
     };
   }))).sort((a, b) => b.date.getTime() - a.date.getTime());
+
+
+const blogInfo = makeInfo(blog);
+
+const canonical = (c: any) => 'https://nna774.net' + c.req.path;
+
 blog.map((article) => {
   app.get(article.path, (c) => {
-    return c.render(<BlogArticle props={article} />, { title: article.title, path: c.req.path });
+    return c.render(
+      <BlogBody blogInfo={blogInfo} canonical={canonical(c)}><BlogArticle props={article} /></BlogBody>);
   });
 });
-
-const info = (blog: BlogType[]): BlogInfoType => {
-  return {
-    blog: blog,
-    tags: blog.map((b) => b.tags || []).flat().reduce((acc, tag) => {
-      const v = acc.get(tag);
-      if (!v) {
-        acc.set(tag, 1);
-      } else {
-        acc.set(tag, v + 1);
-      }
-      return acc;
-    }, new Map<string, number>()),
-  };
-};
-
-const blogInfo = info(blog);
 
 // define blog system routes
 app.get('/blog/', (c) => {
   const news = blog.slice(0, 10);
   return c.render(
-    <>
+    <BlogBody blogInfo={blogInfo} canonical={canonical(c)}>
       {news.map((n) => <BlogArticle props={{ individual: false, ...n }} />)}
-    </>
-  , { title: 'Blog', blogInfo });
+    </BlogBody>
+  , { title: 'Blog' });
 });
 // TODO: いっぱいある
 

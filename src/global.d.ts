@@ -7,7 +7,6 @@ declare module 'hono' {
     (content: string | Promise<string>, props?: {
       title?: string,
       path?: string,
-      blogInfo?: BlogInfoType,
     }): Response
   }
 }
