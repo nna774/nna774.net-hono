@@ -170,7 +170,7 @@ const BlogSidebar = ({blogInfo}: {blogInfo: BlogInfoType}) => (
 
 export const BlogBody = ({blogInfo, canonical, children}: PropsWithChildren<{blogInfo: BlogInfoType, canonical: string}>) => {
   return (
-    <body class='container-fluid'>
+    <>
       <BlogHeader />
       <div id='wrap' class='row'>
         <main role='main' class='col-lg-10 col-lg-push-2 col-md-9 col-md-push-3'>
@@ -179,8 +179,7 @@ export const BlogBody = ({blogInfo, canonical, children}: PropsWithChildren<{blo
 
         <BlogSidebar blogInfo={blogInfo} />
       </div>
-      <myFooter canonical={canonical} />
-    </body>
+    </>
   );
 };
 

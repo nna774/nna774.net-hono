@@ -93,7 +93,7 @@ blog.map((article) => {
   app.get(article.path, (c) => {
     return c.render(
       <BlogBody blogInfo={blogInfo} canonical={canonical(c)}><BlogArticle props={article} individual={true} /></BlogBody>,
-      { title: article.title });
+      { title: article.title, path: c.req.path });
   });
 });
 
@@ -104,7 +104,7 @@ app.get('/blog/', (c) => {
     <BlogBody blogInfo={blogInfo} canonical={canonical(c)}>
       {news.map((n) => <BlogArticle props={{ individual: false, ...n }} />)}
     </BlogBody>
-  , { title: 'Blog' });
+  , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path });
 });
 // TODO: いっぱいある
 

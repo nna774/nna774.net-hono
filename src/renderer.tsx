@@ -7,7 +7,7 @@ import { PageDetails } from './partials/page_details';
 
 export const baseURI = 'https://nna774.net';
 
-const myFooter = (canonical: string) => (
+const Footer = ({canonical}: {canonical: string}) => (
   <>
     <footer>
       <Address />
@@ -40,7 +40,7 @@ export const renderer = jsxRenderer(
           <main role='main' class='row'>
             {children}
           </main>
-          <myFooter canonical={baseURI + path} />
+          <Footer canonical={baseURI + path} />
         </body>
       </html>
     );
@@ -68,7 +68,10 @@ export const blogRenderer = jsxRenderer(
           </script>
         </head>
 
-        {children}
+        <body class='container-fluid'>
+          {children}
+          <Footer canonical={baseURI + path} />
+        </body>
       </html>
     );
   },
