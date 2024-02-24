@@ -14,6 +14,7 @@ export type BlogType = {
 export type BlogInfoType = {
   blog: BlogType[];
   tags: Map<string, number>;
+  monthly: Map<number, Map<number, number>>; // year, month, count
 };
 
 const padding = (n: number, digit: number): string => {
@@ -100,13 +101,17 @@ const BlogHeader = () => (
   </header>
 );
 
+const shortMonth = (m: number): string => {
+  return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][m];
+}
+
 const ArticleLink = ({article}: {article: BlogType}) => (
   <>
     <a href={article.path}>
       {article.title}
     </a>
     {' '}
-    {article.date.toLocaleDateString('default', { month: 'short' })} {article.date.getDate()}
+    {shortMonth(article.date.getMonth())} {article.date.getDate()}
   </>
 );
 
@@ -134,7 +139,18 @@ const BlogSidebar = ({blogInfo}: {blogInfo: BlogInfoType}) => (
       } />
       <SideBarChild name='Archive' children={
         <ul>
-          ##### Archive #####
+          {
+            [...blogInfo.monthly].sort((a, b) => a[0] - b[0]).reverse().map(([year, monthly]) =>
+              <li>
+                <a href={'/blog/' + year + '/' }>{year}</a>({[...monthly].map(([_, count]) => count).reduce((a, b) => a + b)})
+                <ul>
+                  {[...monthly].sort((a, b) => a[0] - b[0]).reverse().map(([month, count]) =>
+                    <li><a href={'/blog/' + year + '/' + padding(month, 2) + '/'}>{shortMonth(month - 1)}</a>({count})</li> // ここは1から始まっている。
+                  )}
+                </ul>
+              </li>
+            )
+          }
         </ul>
       } />
       <SideBarChild name='Profile' children={
@@ -195,5 +211,18 @@ export const makeInfo = (blog: BlogType[]): BlogInfoType => {
       }
       return acc;
     }, new Map<string, number>()),
+    monthly: blog.reduce((acc, b) => {
+      const y = b.date.getFullYear()
+      const m = b.date.getMonth() + 1;
+      const v = acc.get(y) || new Map<number, number>();
+      const vv = v.get(m);
+      if (!vv) {
+        v.set(m, 1);
+      } else {
+        v.set(m, vv + 1);
+      }
+      acc.set(y, v);
+      return acc;
+    }, new Map<number, Map<number, number>>())
   };
 };
