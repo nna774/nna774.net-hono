@@ -65,6 +65,7 @@ ogpImageAlt: まんがタイムきららミラク休刊のお知らせ
 <blockquote>
   まんがタイムきららにもヒエラルキーは存在します。失われたきららは簡単には戻らないのです。保全活動が重要とされています。
 </blockquote>
+
 [open-dokidokivisual.com](https://docs.google.com/presentation/d/124Xwcyl0AbXDc6xXPQX2OJ0flfriOLStmVDNAGUJgFE/) 7ページ
 
 聖典が散逸しないように、クリエを集め、買い支えていきましょう。
