@@ -25,7 +25,7 @@ const dateFormater = (d: Date): string => {
 
 const tag_path = (tag: string): string => {
   return '/blog/tag/' + tag.toLowerCase() + '/';
-}
+};
 
 const ArticleHeader = ({props}: {props: BlogType}, individual: boolean) => (
   <header class='articleMeta'>
@@ -169,4 +169,4 @@ export const BlogBody = ({blogInfo, children}: {blogInfo: BlogInfoType, children
       </div>
     </>
   );
-}
+};
