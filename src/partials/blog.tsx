@@ -4,6 +4,7 @@ import { Child, PropsWithChildren } from 'hono/jsx';
 export type BlogType = {
   individual?: boolean;
   path: string;
+  canonical: string;
   title: string;
   content: string;
   date: Date;
@@ -20,46 +21,57 @@ const padding = (n: number, digit: number): string => {
 };
 
 const dateFormater = (d: Date): string => {
-  return d.getFullYear() + '/' + padding((d.getMonth() + 1), 2) + '/' + padding(d.getDate(), 2);
+  return d.getFullYear() + '/' + padding((d.getMonth() + 1), 2) + '/' + padding(d.getDate(), 2) + ' ' + padding(d.getHours(), 2) + ':' + padding(d.getMinutes(), 2);
 };
 
 const tag_path = (tag: string): string => {
   return '/blog/tag/' + tag.toLowerCase() + '/';
 };
 
-const ArticleHeader = ({props}: {props: BlogType}, individual: boolean) => (
+const ArticleHeader = ({props, individual}: {props: BlogType, individual?: boolean}) => (
   <header class='articleMeta'>
     <h1 class='articleTitle' itemprop='name'>
       <a href={props.path} itemprop='url'>{props.title}</a>
     </h1>
     <time datetime={props.date.toISOString()} itemprop='datePublished'>
       {dateFormater(props.date)}
-    </time>
-    <span itemprop='author' itemscope itemtype='http://schema.org/Person'><a rel='author' href='/about/' itemprop='url'><span itemprop='name'>久我山菜々</span></a></span>
-    <a href={props.path}>parmalink</a>
+    </time>{' '}
+    <span itemprop='author' itemscope itemtype='http://schema.org/Person'>
+      <a rel='author' href='/about/' itemprop='url'><span itemprop='name'>久我山菜々</span></a>
+    </span>{' '}
+    <a href={props.path}>parmalink</a>{' '}
     {props.tags && (
-      <span class='tags'> Tags:
+      <span class='tags'>Tags:{' '}
         {props.tags.map((tag) => (
-          <a href={tag_path(tag)} rel='tag' itemprop='keywords'>{tag}</a>
+          <><a href={tag_path(tag)} rel='tag' itemprop='keywords'>{tag}</a>{' '}</>
         ))}
       </span>
     )}
-    { !!individual && (
+    { individual && (
       <span class='socialBookmarks'>
-        <a href='http://b.hatena.ne.jp/entry/<%= base_url %><%= current_article.url %>' class='hatena-bookmark-button' data-hatena-bookmark-title='<%= current_article.title %>' data-hatena-bookmark-layout='standard-balloon' data-hatena-bookmark-lang='ja' title='このエントリーをはてなブックマークに追加'><img src='https://b.hatena.ne.jp/images/entry-button/button-only.gif' alt='このエントリーをはてなブックマークに追加' width='20' height='20' style='border: none;' /></a>
+        <a href={'http://b.hatena.ne.jp/entry/' + props.canonical} class='hatena-bookmark-button' data-hatena-bookmark-title='<%= current_article.title %>' data-hatena-bookmark-layout='standard-balloon' data-hatena-bookmark-lang='ja' title='このエントリーをはてなブックマークに追加'><img src='https://b.hatena.ne.jp/images/entry-button/button-only.gif' alt='このエントリーをはてなブックマークに追加' width='20' height='20' style='border: none;' /></a>{' '}
         <script type='text/javascript' src='https://b.hatena.ne.jp/js/bookmark_button.js' charset='utf-8' async></script>
-        <a href='https://twitter.com/share' class='twitter-share-button' data-url='<%= base_url %><%= current_article.url %>' data-via='nonamea774' data-lang='ja'>ツイート</a>
+        <a href='https://twitter.com/share' class='twitter-share-button' data-url={props.canonical} data-via='nonamea774' data-lang='ja'>ツイート</a>
       </span>
     )}
   </header>
 );
 
-export const BlogArticle = ({props}: { props: BlogType }, individual?: boolean) => (
+const ArticleFooter = ({date}: {date: Date}) => (
+  <footer class="articleMeta">
+    Witten by <a rel="author" href="/about/" >久我山菜々</a><br />
+    何かツッコミ、意見、便利知見等あれば、<a rel="author" href="https://twitter.com/nonamea774/" >@nonamea774</a>、<a rel="author" href="mailto:nonamea774@gmail.com" >nonamea774@gmail.com</a>までご気軽にお願いします。<br />
+    <time datetime="<%= current_article.date.strftime('%Y-%m-%dT%R%z') %>">{dateFormater(date)}</time>
+  </footer>
+);
+
+export const BlogArticle = ({props, individual}: { props: BlogType, individual?: boolean }) => (
   <article>
-    <ArticleHeader props={props} />
+    <ArticleHeader props={props} individual={individual} />
     <div class='articleBody'>
       {raw(props.content)}
     </div>
+    { individual && <ArticleFooter date={props.date} /> }
   </article>
 );
 
@@ -93,7 +105,7 @@ const ArticleLink = ({article}: {article: BlogType}) => (
     <a href={article.path}>
       {article.title}
     </a>
-
+    {' '}
     {article.date.toLocaleDateString('default', { month: 'short' })} {article.date.getDate()}
   </>
 );

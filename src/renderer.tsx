@@ -1,11 +1,11 @@
 import { jsxRenderer } from 'hono/jsx-renderer';
+import { html } from 'hono/html';
 
 import { Address } from './partials/address';
 import { HostOn } from './partials/host_on';
 import { PageDetails } from './partials/page_details';
-import { BlogBody } from './partials/blog';
 
-const baseURI = 'https://nna774.net';
+export const baseURI = 'https://nna774.net';
 
 const myFooter = (canonical: string) => (
   <>
@@ -62,6 +62,10 @@ export const blogRenderer = jsxRenderer(
           <link href='/css/default.css' rel='stylesheet' />
           <link href='/css/blog.css' rel='stylesheet' />
           <link href='/css/bootstrap.css' rel='stylesheet' />
+
+          <script>
+            {html`!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.async=true;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');`}
+          </script>
         </head>
 
         {children}

@@ -6,11 +6,9 @@ import parseMD from 'parse-md';
 import { promises as fs } from 'node:fs';
 import { glob } from 'glob';
 
-import { renderer, blogRenderer } from './renderer';
+import { renderer, blogRenderer, baseURI } from './renderer';
 
 import { BlogBody, BlogArticle, BlogType, makeInfo } from './partials/blog';
-import { Context } from 'hono/jsx';
-import { BlankInput } from 'hono/types';
 
 type Page = {
   title: string;
@@ -33,7 +31,7 @@ const parse = (v: string): { metadata: Metadata, content: string } => {
   return {
     metadata: {
       title: metadata.title,
-      date: metadata.date ? Date.parse(metadata.date) : undefined,
+      date: metadata.date ? Date.parse(metadata.date.replace('JST', '+09:00')) : undefined, // datry hack
       tags,
     },
     content
@@ -70,13 +68,15 @@ pages.map((path) => {
 // define blog article routes
 const blogPaths = await glob('./src/blog/**/*.md');
 const blog = (await Promise.all(
-  blogPaths.map(async (path): Promise<BlogType> => {
-    const md = await fs.readFile(path, 'utf-8');
+  blogPaths.map(async (filePath): Promise<BlogType> => {
+    const md = await fs.readFile(filePath, 'utf-8');
     const { metadata, content } = parse(md);
     const h = await marked(content);
-    const d = path.substring(9, 19); // 2024/01/01 like
+    const d = filePath.substring(9, 19); // 2024/01/01 like
+    const path = '/' + filePath.substring(4, filePath.length - 3); // remove prefix src and suffix .md
     return {
-      path: '/' + path.substring(4, path.length - 3), // remove prefix src and suffix .md
+      path,
+      canonical: baseURI + path,
       title: metadata.title,
       content: h,
       date: new Date(metadata.date || Date.parse(d)),
@@ -92,7 +92,8 @@ const canonical = (c: any) => 'https://nna774.net' + c.req.path;
 blog.map((article) => {
   app.get(article.path, (c) => {
     return c.render(
-      <BlogBody blogInfo={blogInfo} canonical={canonical(c)}><BlogArticle props={article} /></BlogBody>);
+      <BlogBody blogInfo={blogInfo} canonical={canonical(c)}><BlogArticle props={article} individual={true} /></BlogBody>,
+      { title: article.title });
   });
 });
 
