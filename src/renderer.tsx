@@ -43,7 +43,7 @@ export const renderer = jsxRenderer(
   }
 );
 
-export const renderer2 = jsxRenderer(
+export const blogRenderer = jsxRenderer(
   ({ children, title }) => {
     return (
       <html>

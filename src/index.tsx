@@ -4,19 +4,15 @@ import { marked } from 'marked';
 import parseMD from 'parse-md';
 import { promises as fs } from 'node:fs';
 
-import { renderer, renderer2 } from './renderer';
+import { renderer, blogRenderer } from './renderer';
 
 const app = new Hono();
 
-// app.get('*', renderer);
 app.use('*', async (c, next) => {
-  if (c.req.path === '/') {
-    return renderer(c, next);
-  }
   if (c.req.path.startsWith('/blog/')) {
-    return renderer2(c, next);
+    return blogRenderer(c, next);
   }
-  await next();
+  return renderer(c, next);
 });
 
 app.get('/', (c) => {
