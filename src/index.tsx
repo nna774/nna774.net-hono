@@ -97,17 +97,43 @@ blog.map((article) => {
   });
 });
 
+const PageChain = (pageNumber: number, maxPage: number, hasPast: boolean, hasFuture: boolean) => (
+  <p class="pageChain">
+    { hasPast ? <a href={`/blog/page/${pageNumber + 1}/`} >過去のページ</a> : '過去のページ' }{ ' ' }
+    Page {pageNumber} of {maxPage}{ ' ' }
+    { hasFuture ? <a href={`/blog/page/${pageNumber - 1}/`} >未来のページ</a> : '未来のページ' }
+  </p>
+);
+
 const PER_PAGE = 5;
+const maxPage = Math.ceil(blog.length/PER_PAGE);
 
 // define blog system routes
 app.get('/blog/', (c) => {
   const news = blog.slice(0, PER_PAGE);
+  const chain = PageChain(1, maxPage, true, false);
   return c.render(
     <BlogBody blogInfo={blogInfo} canonical={canonical(c)}>
+      {chain}
       {news.map((n) => <BlogArticle props={{ individual: false, ...n }} />)}
+      {chain}
     </BlogBody>
   , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path, ephemeral: false });
 });
+
+for (let i = 1; i <= maxPage; ++i) {
+  app.get(`/blog/page/${i}/`, (c) => {
+    const news = blog.slice((i - 1) * PER_PAGE, i * PER_PAGE);
+    const chain = PageChain(i, maxPage, i !== maxPage, i !== 1);
+    return c.render(
+      <BlogBody blogInfo={blogInfo} canonical={canonical(c)}>
+        {chain}
+        {news.map((n) => <BlogArticle props={{ individual: false, ...n }} />)}
+        {chain}
+      </BlogBody>
+    , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path, ephemeral: true });
+  });
+}
 
 // ssgのためには、存在するのを教えてあげないといけないので /blog/tags/:name/ のように書けない。
 blogInfo.tags.forEach((_, tag) => {
@@ -137,7 +163,6 @@ blogInfo.monthly.forEach((v, year) => {
     });
   });
 });
-// TODO: page
 
 app.get('*', (c) => { return c.text(c.req.path) });
 
