@@ -14,3 +14,11 @@ await Promise.all(files.map(async (file) => {
     await fs.cp(file, file.replace('src/blog/', outDir + '/blog/'));
   }
 }));
+
+// public以下をコピーする。
+const publicFiles = await glob('./public/**/*');
+await Promise.all(publicFiles.map(async (file) => {
+  if ((await fs.stat(file)).isFile()) {
+    await fs.cp(file, file.replace('public/', outDir + '/'));
+  }
+}));
