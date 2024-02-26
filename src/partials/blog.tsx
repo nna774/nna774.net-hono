@@ -41,7 +41,7 @@ const ArticleHeader = ({props, individual}: {props: BlogType, individual?: boole
       <a rel='author' href='/about/' itemprop='url'><span itemprop='name'>久我山菜々</span></a>
     </span>{' '}
     <a href={props.path}>parmalink</a>{' '}
-    {props.tags && (
+    { props.tags && (
       <span class='tags'>Tags:{' '}
         {props.tags.map((tag) => (
           <><a href={tag_path(tag)} rel='tag' itemprop='keywords'>{tag}</a>{' '}</>

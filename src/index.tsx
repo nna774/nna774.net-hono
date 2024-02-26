@@ -85,8 +85,6 @@ const blog = (await Promise.all(
       tags: metadata.tags,
     };
   }))).sort((a, b) => b.date.getTime() - a.date.getTime());
-
-
 const blogInfo = makeInfo(blog);
 
 const canonical = (c: any) => 'https://nna774.net' + c.req.path;
