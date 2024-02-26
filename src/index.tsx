@@ -139,4 +139,6 @@ blogInfo.monthly.forEach((v, year) => {
 });
 // TODO: page
 
+app.get('*', (c) => { return c.text(c.req.path) });
+
 export default app;
