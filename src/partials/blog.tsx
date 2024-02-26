@@ -76,11 +76,30 @@ export const BlogArticle = ({props, individual}: { props: BlogType, individual?:
   </article>
 );
 
-const BlogHeader = () => (
+const Onepoint = ({canonical}: {canonical: string}) => {
+  const onepoints: Child[] = [
+    'あなたの予想に反して、このページが見えているでしょうか?',
+    "Меня зовут Нана. А вас?",
+    <a href="https://www.youtube.com/watch?v=PqJNc9KVIZE">Tell Your World</a>,
+    <a href="/OpenYo/">Yo!</a>,
+    <a href="http://wayback.archive.org/web/20140823220053/http://theinterviews.jp/retlet/13554">ぐるぐると回り続けて、そのうちぼくらはバターになる。</a>,
+    <a href="http://www.sham.jp/studio/sound/denki/">僕らはみんな電気の恋人</a>,
+    <a href="https://twitter.com/nonamea774/status/625535338589483009">📛</a>,
+    "コンピュータと心中する覚悟は出来ましたか？",
+    <a href='https://www.youtube.com/@hapiene'>明日のあなたがエネルギーで幸せになりますように。</a>,
+  ];
+  let i = Math.floor(Math.random() * onepoints.length);
+  if (canonical === 'https://nna774.net/blog/') {
+    i = 0;
+  }
+  return <p id='onepoint'>{onepoints[i]}</p>;
+};
+
+const BlogHeader = ({canonical}: {canonical: string}) => (
   <header role='banner' id='head' class='row center'>
     <div id='banner' class='col-lg-10 col-lg-push-2 col-md-9 col-md-push-3'>
       <h1><a href='/blog/' rel='index'>/dev/nona (いっと☆わーくす！)</a></h1>
-      <p id='onepoint'>##### Onepoint #####</p>
+      <Onepoint canonical={canonical} />
       <nav id='headerMenu'>
         <span class='headerMenuElem'><a href='/' rel='index'><span class='sprite-1012 sp-h'></span>top</a></span>
         <span class='headerMenuElem'><a href='/blog/feed.xml' rel='alternate'><span class='sprite-feed sp-h'></span>feed</a></span>
@@ -187,7 +206,7 @@ const BlogSidebar = ({blogInfo}: {blogInfo: BlogInfoType}) => (
 export const BlogBody = ({blogInfo, canonical, children}: PropsWithChildren<{blogInfo: BlogInfoType, canonical: string}>) => {
   return (
     <>
-      <BlogHeader />
+      <BlogHeader canonical={canonical} />
       <div id='wrap' class='row'>
         <main role='main' class='col-lg-10 col-lg-push-2 col-md-9 col-md-push-3'>
           {children}
