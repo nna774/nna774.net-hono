@@ -7,25 +7,25 @@ import { PageDetails } from './partials/page_details';
 
 export const baseURI = 'https://nna774.net';
 
-const Footer = ({canonical}: {canonical: string}) => (
+const Footer = ({canonical, ephemeral}: {canonical: string, ephemeral: boolean}) => (
   <>
     <footer>
       <Address />
       <HostOn />
-      <PageDetails canonical={canonical} />
+      <PageDetails canonical={canonical} ephemeral={ephemeral} />
     </footer>
     <img src='https://nna774.net/hstspng.png' alt='' style='display:none;' />
   </>
 );
 
 export const renderer = jsxRenderer(
-  ({ children, title, path }) => {
+  ({ children, title, path, ephemeral }) => {
     return (
       <html lang='ja' prefix='og: http://ogp.me/ns#'>
         <head>
           <meta charset='UTF-8' />
           <title>{title || 'いっと☆わーくす！'}</title>
-          <link rel='canonical' href={baseURI + path} />
+          { !ephemeral && <link rel='canonical' href={baseURI + path} /> }
 
           <link href='/css/default.css' rel='stylesheet' />
           <link href='/css/bootstrap.css' rel='stylesheet' />
@@ -40,7 +40,7 @@ export const renderer = jsxRenderer(
           <main role='main' class='row'>
             {children}
           </main>
-          <Footer canonical={baseURI + path} />
+          <Footer canonical={baseURI + path} ephemeral={ephemeral} />
         </body>
       </html>
     );
@@ -51,13 +51,13 @@ export const renderer = jsxRenderer(
 );
 
 export const blogRenderer = jsxRenderer(
-  ({ children, title, path }) => {
+  ({ children, title, path, ephemeral }) => {
     return (
       <html lang='ja' prefix='og: http://ogp.me/ns#'>
         <head>
           <meta charset='UTF-8' />
           <title>{title || 'いっと☆わーくす！'}</title>
-          <link rel='canonical' href={baseURI + path} />
+          { !ephemeral && <link rel='canonical' href={baseURI + path} /> }
 
           <link href='/css/default.css' rel='stylesheet' />
           <link href='/css/blog.css' rel='stylesheet' />
@@ -71,7 +71,7 @@ export const blogRenderer = jsxRenderer(
 
         <body class='container-fluid'>
           {children}
-          <Footer canonical={baseURI + path} />
+          <Footer canonical={baseURI + path} ephemeral={ephemeral} />
         </body>
       </html>
     );

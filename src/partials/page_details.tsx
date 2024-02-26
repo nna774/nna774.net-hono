@@ -1,12 +1,14 @@
 import { html } from 'hono/html';
 
-export const PageDetails = ({canonical}: {canonical: string}) => (
+export const PageDetails = ({canonical, ephemeral}: {canonical: string, ephemeral: boolean}) => (
   <>
-    <div id='pageDetail'>
-      <p>
-        Permalink of this page is <a href={canonical}>{canonical}</a>.
-      </p>
-    </div>
+    { !ephemeral &&
+      <div id='pageDetail'>
+        <p>
+          Permalink of this page is <a href={canonical}>{canonical}</a>.
+        </p>
+      </div>
+    }
     <a href='https://twitter.com/share' class='twitter-share-button' data-url={canonical} data-via='nonamea774' data-lang='ja'>ツイート</a>
     <script>
       {html`

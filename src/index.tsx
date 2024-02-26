@@ -63,7 +63,7 @@ const pages = ['index.html']; // TODO: grobにする。
 pages.map((path) => {
   app.get('/', async (c) => {
     const p = await page(path);
-    return c.render(raw(p.content), { title: p.title, path: c.req.path });
+    return c.render(raw(p.content), { title: p.title, path: c.req.path, ephemeral: false });
   });
 });
 
@@ -93,7 +93,7 @@ blog.map((article) => {
   app.get(article.path, (c) => {
     return c.render(
       <BlogBody blogInfo={blogInfo} canonical={canonical(c)}><BlogArticle props={article} individual={true} /></BlogBody>,
-      { title: article.title, path: c.req.path });
+      { title: article.title, path: c.req.path, ephemeral: false });
   });
 });
 
@@ -104,7 +104,7 @@ app.get('/blog/', (c) => {
     <BlogBody blogInfo={blogInfo} canonical={canonical(c)}>
       {news.map((n) => <BlogArticle props={{ individual: false, ...n }} />)}
     </BlogBody>
-  , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path });
+  , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path, ephemeral: false });
 });
 
 // ssgのためには、存在するのを教えてあげないといけないので /blog/tags/:name/ のように書けない。
@@ -113,7 +113,7 @@ blogInfo.tags.forEach((_, tag) => {
     const articles = blog.filter((a) => a.tags?.map((t) => t.toLowerCase()).includes(tag));
     return c.render(
       <BlogLinks blogInfo={blogInfo} canonical={canonical(c)} articles={articles} title={`Articles tagged ${tag}(${articles.length})`} />
-    , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path });
+    , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path, ephemeral: true });
   });
 });
 blogInfo.monthly.forEach((v, year) => {
@@ -121,7 +121,7 @@ blogInfo.monthly.forEach((v, year) => {
     const articles = blog.filter((a) => a.date.getFullYear() === year);
     return c.render(
       <BlogLinks blogInfo={blogInfo} canonical={canonical(c)} articles={articles} title={`Articles in ${year}(${articles.length})`} />
-    , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path });
+    , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path, ephemeral: true });
   });
   v.forEach((_, month) => {
     const padding = (n: number, digit: number): string => { // なんとかしてくれ
@@ -131,7 +131,7 @@ blogInfo.monthly.forEach((v, year) => {
       const articles = blog.filter((a) => a.date.getFullYear() === year && a.date.getMonth() + 1 === month);
       return c.render(
         <BlogLinks blogInfo={blogInfo} canonical={canonical(c)} articles={articles} title={`Articles in ${year}/${month}(${articles.length})`} />
-      , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path });
+      , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path, ephemeral: true });
     });
   });
 });
