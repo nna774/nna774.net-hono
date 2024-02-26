@@ -130,7 +130,7 @@ const BlogSidebar = ({blogInfo}: {blogInfo: BlogInfoType}) => (
           {blogInfo.blog.slice(0, 10).map((article) => <li><ArticleLink article={article} /></li>)}
         </ol>
       } />
-      <SideBarChild name='Tags' to={'/blog/tags/'} children={
+      <SideBarChild name='Tags' children={
         <ul>
           { [...blogInfo.tags || []].sort((a, b) => a[1] - b[1]).reverse().map(([tag, count]) =>
             <li><a href={tag_path(tag)}>{tag}</a> ({count})</li>
