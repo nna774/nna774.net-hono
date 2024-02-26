@@ -89,10 +89,22 @@ const blogInfo = makeInfo(blog);
 
 const canonical = (c: any) => 'https://nna774.net' + c.req.path;
 
-blog.map((article) => {
+const ArticleChain = (pastArticle?: BlogType, futureArticle?: BlogType) => (
+  <p class="articleChain">
+    { pastArticle ? <a href={pastArticle.path} >&lt;&lt; 過去の記事</a> : '<< 過去の記事' }{ ' ' }
+    { futureArticle ? <a href={futureArticle.path} >未来の記事 &gt;&gt;</a> : "未来の記事 >>" }
+  </p>
+);
+
+blog.map((article, i) => {
   app.get(article.path, (c) => {
+    const chain = ArticleChain(i !== blog.length ? blog[i + 1]: undefined, i !== 0 ? blog[i - 1] : undefined);
     return c.render(
-      <BlogBody blogInfo={blogInfo} canonical={canonical(c)}><BlogArticle props={article} individual={true} /></BlogBody>,
+      <BlogBody blogInfo={blogInfo} canonical={canonical(c)}>
+        {chain}
+        <BlogArticle props={article} individual={true} />
+        {chain}
+      </BlogBody>,
       { title: article.title, path: c.req.path, ephemeral: false });
   });
 });
@@ -110,12 +122,12 @@ const maxPage = Math.ceil(blog.length/PER_PAGE);
 
 // define blog system routes
 app.get('/blog/', (c) => {
-  const news = blog.slice(0, PER_PAGE);
+  const articles = blog.slice(0, PER_PAGE);
   const chain = PageChain(1, maxPage, true, false);
   return c.render(
     <BlogBody blogInfo={blogInfo} canonical={canonical(c)}>
       {chain}
-      {news.map((n) => <BlogArticle props={{ individual: false, ...n }} />)}
+      {articles.map((n) => <BlogArticle props={{ individual: false, ...n }} />)}
       {chain}
     </BlogBody>
   , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path, ephemeral: false });
@@ -123,12 +135,12 @@ app.get('/blog/', (c) => {
 
 for (let i = 1; i <= maxPage; ++i) {
   app.get(`/blog/page/${i}/`, (c) => {
-    const news = blog.slice((i - 1) * PER_PAGE, i * PER_PAGE);
+    const articles = blog.slice((i - 1) * PER_PAGE, i * PER_PAGE);
     const chain = PageChain(i, maxPage, i !== maxPage, i !== 1);
     return c.render(
       <BlogBody blogInfo={blogInfo} canonical={canonical(c)}>
         {chain}
-        {news.map((n) => <BlogArticle props={{ individual: false, ...n }} />)}
+        {articles.map((n) => <BlogArticle props={{ individual: false, ...n }} />)}
         {chain}
       </BlogBody>
     , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path, ephemeral: true });
