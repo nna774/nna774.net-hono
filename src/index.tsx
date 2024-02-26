@@ -91,8 +91,8 @@ const canonical = (c: any) => 'https://nna774.net' + c.req.path;
 
 const ArticleChain = (pastArticle?: BlogType, futureArticle?: BlogType) => (
   <p class="articleChain">
-    { pastArticle ? <a href={pastArticle.path} >&lt;&lt; 過去の記事</a> : '<< 過去の記事' }{ ' ' }
-    { futureArticle ? <a href={futureArticle.path} >未来の記事 &gt;&gt;</a> : "未来の記事 >>" }
+    { pastArticle ? <a href={pastArticle.path} >&lt;&lt; 過去の記事({pastArticle.title})</a> : '<< 過去の記事' }{ ' ' }
+    { futureArticle ? <a href={futureArticle.path} >未来の記事({futureArticle.title}) &gt;&gt;</a> : "未来の記事 >>" }
   </p>
 );
 
