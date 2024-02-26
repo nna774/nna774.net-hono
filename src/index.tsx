@@ -97,9 +97,11 @@ blog.map((article) => {
   });
 });
 
+const PER_PAGE = 5;
+
 // define blog system routes
 app.get('/blog/', (c) => {
-  const news = blog.slice(0, 10);
+  const news = blog.slice(0, PER_PAGE);
   return c.render(
     <BlogBody blogInfo={blogInfo} canonical={canonical(c)}>
       {news.map((n) => <BlogArticle props={{ individual: false, ...n }} />)}
