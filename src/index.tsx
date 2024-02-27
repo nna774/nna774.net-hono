@@ -5,6 +5,7 @@ import { marked } from 'marked';
 import parseMD from 'parse-md';
 import { promises as fs } from 'node:fs';
 import { glob } from 'glob';
+import RSS from 'rss';
 
 import { renderer, blogRenderer, baseURI } from './renderer';
 
@@ -178,6 +179,30 @@ blogInfo.monthly.forEach((v, year) => {
       , { title: `Articles in ${year}/${month}`, path: c.req.path, ephemeral: true });
     });
   });
+});
+
+app.get('/blog/feed.xml', (c) => {
+  const articles = blog.slice(0, 10);
+  const feed = new RSS({
+    title: '/dev/nona',
+    description: 'いっと☆わーくす！',
+    site_url: 'https://nna774.net/blog/',
+    feed_url: 'https://nna774.net/blog/feed.xml',
+    language: 'ja',
+    pubDate: articles[0].date.toUTCString(),
+  });
+  articles.forEach((a) => {
+    feed.item({
+      title: a.title,
+      description: a.content,
+      url: baseURI + a.path,
+      author: '久我山菜々',
+      date: a.date.toUTCString(),
+      categories: a.tags,
+    });
+  });
+
+  return new Response(feed.xml({ indent: true }), { status: 200, headers: { 'Content-Type': 'application/rss' } });
 });
 
 app.get('*', (c) => { return c.text(c.req.path) });
