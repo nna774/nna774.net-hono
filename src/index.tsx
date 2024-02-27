@@ -40,7 +40,10 @@ const parse = (v: string): { metadata: Metadata, content: string } => {
 };
 
 const page = async (path: string): Promise<Page> => {
-  const file = await fs.readFile('./src/pages/' + path, 'utf-8');
+  if (path.endsWith('/')) {
+    path += 'index.html';
+  }
+  const file = await fs.readFile('./src/pages' + path, 'utf-8');
   const { metadata, content } = parse(file);
   return { title: metadata.title, content };
 };
@@ -61,9 +64,12 @@ app.get('/img/*', serveStatic({ root: './public' }));
 app.get('/blog/:image{.+\\.(png|jpg|jpeg|JPG|hs|pdf|ogg|)$}', serveStatic({ root: './src' }));
 
 // define html pages routes
-const pages = ['index.html']; // TODO: grobにする。
+const pages = [
+  '/',
+  '/about/',
+]; // TODO: grobにする。
 pages.map((path) => {
-  app.get('/', async (c) => {
+  app.get(path, async (c) => {
     const p = await page(path);
     return c.render(raw(p.content), { title: p.title, path: c.req.path, ephemeral: false });
   });
