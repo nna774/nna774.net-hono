@@ -157,7 +157,7 @@ blogInfo.tags.forEach((_, tag) => {
     const articles = blog.filter((a) => a.tags?.map((t) => t.toLowerCase()).includes(tag.toLowerCase()));
     return c.render(
       <BlogLinks blogInfo={blogInfo} canonical={canonical(c)} articles={articles} title={`Articles tagged ${tag}(${articles.length})`} />
-    , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path, ephemeral: true });
+    , { title: `Articles tagged ${tag}`, path: c.req.path, ephemeral: true });
   });
 });
 blogInfo.monthly.forEach((v, year) => {
@@ -165,7 +165,7 @@ blogInfo.monthly.forEach((v, year) => {
     const articles = blog.filter((a) => a.date.getFullYear() === year);
     return c.render(
       <BlogLinks blogInfo={blogInfo} canonical={canonical(c)} articles={articles} title={`Articles in ${year}(${articles.length})`} />
-    , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path, ephemeral: true });
+    , { title: `Articles in ${year}`, path: c.req.path, ephemeral: true });
   });
   v.forEach((_, month) => {
     const padding = (n: number, digit: number): string => { // なんとかしてくれ
@@ -175,7 +175,7 @@ blogInfo.monthly.forEach((v, year) => {
       const articles = blog.filter((a) => a.date.getFullYear() === year && a.date.getMonth() + 1 === month);
       return c.render(
         <BlogLinks blogInfo={blogInfo} canonical={canonical(c)} articles={articles} title={`Articles in ${year}/${month}(${articles.length})`} />
-      , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path, ephemeral: true });
+      , { title: `Articles in ${year}/${month}`, path: c.req.path, ephemeral: true });
     });
   });
 });
