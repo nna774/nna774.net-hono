@@ -75,6 +75,7 @@ const pages = [
   '/lifepng/',
   '/PRs/',
   '/3x3x3x3/',
+  '/errors/404.html',
 ]; // TODO: grobにする。
 pages.map(async (path) => {
   const p = await page(path);
