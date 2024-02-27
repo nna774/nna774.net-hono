@@ -6,3 +6,5 @@ npm run dev
 ```txt
 npm run deploy
 ```
+
+TODO: sitemap
