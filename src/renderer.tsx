@@ -72,7 +72,6 @@ export const blogRenderer = jsxRenderer(
           <script>{/* tweet button */}
             {html`!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.async=true;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');`}
           </script>
-          <script async src='https://platform.twitter.com/widgets.js' charset='utf-8'></script>
 
           <meta name='viewport' content='width=device-width,initial-scale=1.0' />
         </head>
@@ -80,6 +79,7 @@ export const blogRenderer = jsxRenderer(
         <body class='container-fluid'>
           {children}
           <Footer canonical={baseURI + path} ephemeral={ephemeral} />
+          <script src='https://platform.twitter.com/widgets.js' charset='utf-8'></script>
         </body>
       </html>
     );
