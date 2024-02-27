@@ -32,3 +32,6 @@ await Promise.all(publicFiles.map(async (file) => {
     await fs.cp(file, file.replace('public/', outDir + '/'));
   }
 }));
+
+// feed.xmlが何故か拡張子がついてしまう。
+await fs.rename(outDir + '/blog/feed.xml.html', outDir + '/blog/feed.xml');
