@@ -67,6 +67,7 @@ app.get('/blog/:image{.+\\.(png|jpg|jpeg|JPG|hs|pdf|ogg|)$}', serveStatic({ root
 const pages = [
   '/',
   '/about/',
+  '/OpenYo/',
 ]; // TODO: grobにする。
 pages.map((path) => {
   app.get(path, async (c) => {
