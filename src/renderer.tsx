@@ -19,7 +19,7 @@ const Footer = ({canonical, ephemeral}: {canonical: string, ephemeral: boolean})
 );
 
 export const renderer = jsxRenderer(
-  ({ children, title, path, ephemeral }) => {
+  ({ children, title, path, ephemeral, customJS }) => {
     return (
       <html lang='ja' prefix='og: http://ogp.me/ns#'>
         <head>
@@ -29,6 +29,8 @@ export const renderer = jsxRenderer(
 
           <link href='/css/default.css' rel='stylesheet' />
           <link href='/css/bootstrap.css' rel='stylesheet' />
+
+          {customJS && <script src={customJS}></script>}
         </head>
 
         <body class='container-fluid'>

@@ -10,9 +10,10 @@ import RSS from 'rss';
 import { renderer, blogRenderer, baseURI } from './renderer';
 
 import { BlogBody, BlogArticle, BlogType, makeInfo, BlogLinks, tag_path } from './partials/blog';
+import { showRoutes } from 'hono/dev';
 
 type Page = {
-  title: string;
+  metadata: Metadata;
   content: string;
 };
 
@@ -20,6 +21,7 @@ type Metadata = {
   title: string;
   date?: number;
   tags?: string[];
+  customJS?: string;
 };
 
 type MetadataString = { [key in keyof Metadata]: string };
@@ -34,6 +36,7 @@ const parse = (v: string): { metadata: Metadata, content: string } => {
       title: metadata.title,
       date: metadata.date ? Date.parse(metadata.date.replace('JST', '+09:00')) : undefined, // datry hack
       tags,
+      customJS: metadata.customJS,
     },
     content
   };
@@ -44,8 +47,7 @@ const page = async (path: string): Promise<Page> => {
     path += 'index.html';
   }
   const file = await fs.readFile('./src/pages' + path, 'utf-8');
-  const { metadata, content } = parse(file);
-  return { title: metadata.title, content };
+  return parse(file);
 };
 
 const app = new Hono();
@@ -70,12 +72,20 @@ const pages = [
   '/OpenYo/',
   '/piet/',
   '/projects/',
+  '/lifepng/',
 ]; // TODO: grobにする。
-pages.map((path) => {
-  app.get(path, async (c) => {
-    const p = await page(path);
-    return c.render(raw(p.content), { title: p.title, path: c.req.path, ephemeral: false });
+pages.map(async (path) => {
+  const p = await page(path);
+  app.get(path, (c) => {
+    return c.render(raw(p.content), { title: p.metadata.title, path: c.req.path, ephemeral: false, customJS: p.metadata.customJS });
   });
+});
+
+// customJS
+[
+  'lifepng/lifepng.js',
+].map((path) => {
+  app.get(path, serveStatic({ root: './src/pages' }));
 });
 
 // define blog article routes
@@ -162,7 +172,6 @@ for (let i = 1; i <= maxPage; ++i) {
 
 // ssgのためには、存在するのを教えてあげないといけないので /blog/tags/:name/ のように書けない。
 blogInfo.tags.forEach((_, tag) => {
-  console.log(tag, tag_path(tag));
   app.get(tag_path(tag), (c) => {
     const articles = blog.filter((a) => a.tags?.map((t) => t.toLowerCase()).includes(tag.toLowerCase()));
     return c.render(

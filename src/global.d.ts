@@ -6,6 +6,7 @@ declare module 'hono' {
       title: string,
       path: string,
       ephemeral: boolean,
+      customJS?: string,
     }): Response
   }
 }
