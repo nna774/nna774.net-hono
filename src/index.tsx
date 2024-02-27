@@ -73,6 +73,7 @@ const pages = [
   '/piet/',
   '/projects/',
   '/lifepng/',
+  '/PRs/',
 ]; // TODO: grobにする。
 pages.map(async (path) => {
   const p = await page(path);
