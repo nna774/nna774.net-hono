@@ -8,7 +8,7 @@ import { glob } from 'glob';
 
 import { renderer, blogRenderer, baseURI } from './renderer';
 
-import { BlogBody, BlogArticle, BlogType, makeInfo, BlogLinks } from './partials/blog';
+import { BlogBody, BlogArticle, BlogType, makeInfo, BlogLinks, tag_path } from './partials/blog';
 
 type Page = {
   title: string;
@@ -152,8 +152,9 @@ for (let i = 1; i <= maxPage; ++i) {
 
 // ssgのためには、存在するのを教えてあげないといけないので /blog/tags/:name/ のように書けない。
 blogInfo.tags.forEach((_, tag) => {
-  app.get(`/blog/tags/${tag}/`, (c) => {
-    const articles = blog.filter((a) => a.tags?.map((t) => t.toLowerCase()).includes(tag));
+  console.log(tag, tag_path(tag));
+  app.get(tag_path(tag), (c) => {
+    const articles = blog.filter((a) => a.tags?.map((t) => t.toLowerCase()).includes(tag.toLowerCase()));
     return c.render(
       <BlogLinks blogInfo={blogInfo} canonical={canonical(c)} articles={articles} title={`Articles tagged ${tag}(${articles.length})`} />
     , { title: '/dev/nona (いっと☆わーくす！)', path: c.req.path, ephemeral: true });

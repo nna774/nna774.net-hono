@@ -25,8 +25,12 @@ const dateFormater = (d: Date): string => {
   return d.getFullYear() + '/' + padding((d.getMonth() + 1), 2) + '/' + padding(d.getDate(), 2) + ' ' + padding(d.getHours(), 2) + ':' + padding(d.getMinutes(), 2);
 };
 
-const tag_path = (tag: string): string => {
-  return '/blog/tags/' + tag.toLowerCase() + '/';
+export const tag_path = (tag: string): string => {
+  const removeSlash = (s: string) => {
+    if (s.startsWith('/')) { s = s.substring(1); }
+    return s.replaceAll('/', '-');
+  };
+  return '/blog/tags/' + removeSlash(encodeURI(tag.toLocaleLowerCase())) + '/';
 };
 
 const ArticleHeader = ({props, individual}: {props: BlogType, individual?: boolean}) => (
