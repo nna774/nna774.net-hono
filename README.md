@@ -7,4 +7,7 @@ npm run dev
 npm run deploy
 ```
 
-TODO: sitemap
+## TODO
+
+- sitemap
+- ogp image(記事のmetadataに`ogpImage`ってのがあることがあるので、その際にそれを使う)
