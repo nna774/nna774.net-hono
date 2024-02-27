@@ -7,10 +7,11 @@ export const HostOn = () => (
   <>
     <p id='hostOn'>
       <del><a href='https://www.flickr.com/photos/nna774/14434965670/'>Powered with Raspberry Pi</a></del><br />
-      このページはGithubの<a href='https://github.com/nna774/nna774.net'>nna774/nna774.net</a>にレポジトリがあります。
+      <del>このページはGithubの<a href='https://github.com/nna774/nna774.net'>nna774/nna774.net</a>にレポジトリがあります。</del><br />
+      このページはGithubの<a href='https://github.com/nna774/nna774.net-hono'>nna774/nna774.net-hono</a>にレポジトリがあります。<br />
     </p>
     <p id='_commitHash'>
-      このページのビルド時のCommit Hashは<a href={'https://github.com/nna774/nna774.net/tree/' + revision}>{revision}</a>です。<br />
+      このページのビルド時のCommit Hashは<a href={'https://github.com/nna774/nna774.net-hono/tree/' + revision}>{revision}</a>です。<br />
       Commit メッセージは"{commitMessage}"です。
     </p>
     <p id='_buildDate'>
