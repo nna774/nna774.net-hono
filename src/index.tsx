@@ -30,7 +30,7 @@ const parse = (v: string): { metadata: Metadata, content: string } => {
   const res = parseMD(v);
   const metadata: MetadataString = res.metadata as MetadataString;
   const content: string = res.content;
-  const tags = metadata.tags ? metadata.tags.toString().split(',').map((t) => t.trim()) : []; // 2048 みたいなタグがtoStringしないと爆発していた。
+  const tags = metadata?.tags ? metadata.tags.toString().split(',').map((t) => t.trim()) : []; // 2048 みたいなタグがtoStringしないと爆発していた。
   return {
     metadata: {
       title: metadata.title,
@@ -74,6 +74,7 @@ const pages = [
   '/projects/',
   '/lifepng/',
   '/PRs/',
+  '/3x3x3x3/',
 ]; // TODO: grobにする。
 pages.map(async (path) => {
   const p = await page(path);
