@@ -16,8 +16,6 @@ ogpImageAlt: まんがタイムきららミラク休刊のお知らせ
 よく考えると、実は[去年](/blog/2016/12/17/zenra-zip.html)もこのカレンダー書かせてもらっていて、
 そこで[全裸](http://seiga.nicovideo.jp/comic/23119)の話をしてたんですね。
 
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=nna774-22&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=B075ZRMV35&linkId=e9ea024e320fea85628e94f48ce07c56"></iframe>
-
 全裸.zip、買ってね！！
 
 # はい
