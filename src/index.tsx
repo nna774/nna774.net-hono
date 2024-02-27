@@ -56,6 +56,7 @@ app.use('*', async (c, next) => {
 app.get('/css/*', serveStatic({ root: './public' }));
 app.get('/img/*', serveStatic({ root: './public' }));
 // blogの付属品は横に置いてある。いろんな拡張子があってびっくりするけど、以下に足せば返せるようになる。
+// どうせdevの時だけしかここは使われない(build.tsの中でSSG向けではコピーしている)。
 app.get('/blog/:image{.+\\.(png|jpg|jpeg|JPG|hs|pdf|ogg|)$}', serveStatic({ root: './src' }));
 
 // define html pages routes
