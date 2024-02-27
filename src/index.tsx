@@ -86,7 +86,7 @@ const blog = (await Promise.all(
       tags: metadata.tags,
     };
   })))
-  .filter((b) => !b.tags?.includes('published_false'))
+  .filter((b) => !b.tags?.includes('published_false')) // published_falseタグのついてる記事は公開しない。
   .sort((a, b) => b.date.getTime() - a.date.getTime());
 const blogInfo = makeInfo(blog);
 
