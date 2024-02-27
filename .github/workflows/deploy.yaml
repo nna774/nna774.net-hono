@@ -18,6 +18,8 @@ jobs:
       - uses: oven-sh/setup-bun@v1
       - run: npm ci
       - run: npm run build
+        env:
+          TZ: "Asia/Tokyo"
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
