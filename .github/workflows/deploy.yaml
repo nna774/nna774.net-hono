@@ -25,4 +25,4 @@ jobs:
           role-to-assume: arn:aws:iam::486414336274:role/nna774.net-deploy-actions
       - name: sync to s3
         run: |
-          aws s3 cp dist/ s3://nna774.net-debug/
+          aws s3 sync dist/ s3://nna774.net-debug --delete --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
