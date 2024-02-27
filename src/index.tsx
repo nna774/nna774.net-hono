@@ -10,7 +10,6 @@ import RSS from 'rss';
 import { renderer, blogRenderer, baseURI } from './renderer';
 
 import { BlogBody, BlogArticle, BlogType, makeInfo, BlogLinks, tag_path } from './partials/blog';
-import { showRoutes } from 'hono/dev';
 
 type Page = {
   metadata: Metadata;
@@ -116,9 +115,9 @@ const blogInfo = makeInfo(blog);
 const canonical = (c: any) => 'https://nna774.net' + c.req.path;
 
 const ArticleChain = (pastArticle?: BlogType, futureArticle?: BlogType) => (
-  <p class="articleChain">
+  <p class='articleChain'>
     { pastArticle ? <a href={pastArticle.path} >&lt;&lt; 過去の記事({pastArticle.title})</a> : '<< 過去の記事' }{ ' ' }
-    { futureArticle ? <a href={futureArticle.path} >未来の記事({futureArticle.title}) &gt;&gt;</a> : "未来の記事 >>" }
+    { futureArticle ? <a href={futureArticle.path} >未来の記事({futureArticle.title}) &gt;&gt;</a> : '未来の記事 >>' }
   </p>
 );
 
@@ -136,7 +135,7 @@ blog.map((article, i) => {
 });
 
 const PageChain = (pageNumber: number, maxPage: number, hasPast: boolean, hasFuture: boolean) => (
-  <p class="pageChain">
+  <p class='pageChain'>
     { hasPast ? <a href={`/blog/page/${pageNumber + 1}/`} >過去のページ</a> : '過去のページ' }{ ' ' }
     Page {pageNumber} of {maxPage}{ ' ' }
     { hasFuture ? <a href={`/blog/page/${pageNumber - 1}/`} >未来のページ</a> : '未来のページ' }
@@ -226,6 +225,6 @@ app.get('/blog/feed.xml', (c) => {
   return new Response(feed.xml({ indent: true }), { status: 200, headers: { 'Content-Type': 'application/rss' } });
 });
 
-app.get('*', (c) => { return c.text(c.req.path) });
+app.get('*', (c) => { return c.text(c.req.path); });
 
 export default app;

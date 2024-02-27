@@ -63,9 +63,9 @@ const ArticleHeader = ({props, individual}: {props: BlogType, individual?: boole
 );
 
 const ArticleFooter = ({date}: {date: Date}) => (
-  <footer class="articleMeta">
-    Witten by <a rel="author" href="/about/" >久我山菜々</a><br />
-    何かツッコミ、意見、便利知見等あれば、<a rel="author" href="https://twitter.com/nonamea774/" >@nonamea774</a>、<a rel="author" href="mailto:nonamea774@gmail.com" >nonamea774@gmail.com</a>までご気軽にお願いします。<br />
+  <footer class='articleMeta'>
+    Witten by <a rel='author' href='/about/' >久我山菜々</a><br />
+    何かツッコミ、意見、便利知見等あれば、<a rel='author' href='https://twitter.com/nonamea774/' >@nonamea774</a>、<a rel='author' href='mailto:nonamea774@gmail.com' >nonamea774@gmail.com</a>までご気軽にお願いします。<br />
     <time datetime="<%= current_article.date.strftime('%Y-%m-%dT%R%z') %>">{dateFormater(date)}</time>
   </footer>
 );
@@ -83,13 +83,13 @@ export const BlogArticle = ({props, individual}: { props: BlogType, individual?:
 const Onepoint = ({canonical}: {canonical: string}) => {
   const onepoints: Child[] = [
     'あなたの予想に反して、このページが見えているでしょうか?',
-    "Меня зовут Нана. А вас?",
-    <a href="https://www.youtube.com/watch?v=PqJNc9KVIZE">Tell Your World</a>,
-    <a href="/OpenYo/">Yo!</a>,
-    <a href="http://wayback.archive.org/web/20140823220053/http://theinterviews.jp/retlet/13554">ぐるぐると回り続けて、そのうちぼくらはバターになる。</a>,
-    <a href="http://www.sham.jp/studio/sound/denki/">僕らはみんな電気の恋人</a>,
-    <a href="https://twitter.com/nonamea774/status/625535338589483009">📛</a>,
-    "コンピュータと心中する覚悟は出来ましたか？",
+    'Меня зовут Нана. А вас?',
+    <a href='https://www.youtube.com/watch?v=PqJNc9KVIZE'>Tell Your World</a>,
+    <a href='/OpenYo/'>Yo!</a>,
+    <a href='http://wayback.archive.org/web/20140823220053/http://theinterviews.jp/retlet/13554'>ぐるぐると回り続けて、そのうちぼくらはバターになる。</a>,
+    <a href='http://www.sham.jp/studio/sound/denki/'>僕らはみんな電気の恋人</a>,
+    <a href='https://twitter.com/nonamea774/status/625535338589483009'>📛</a>,
+    'コンピュータと心中する覚悟は出来ましたか？',
     <a href='https://www.youtube.com/@hapiene'>明日のあなたがエネルギーで幸せになりますように。</a>,
   ];
   let i = Math.floor(Math.random() * onepoints.length);
@@ -126,7 +126,7 @@ const BlogHeader = ({canonical}: {canonical: string}) => (
 
 const shortMonth = (m: number): string => {
   return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][m];
-}
+};
 
 const ArticleLink = ({article}: {article: BlogType}) => (
   <>
@@ -244,7 +244,7 @@ export const makeInfo = (blog: BlogType[]): BlogInfoType => {
       return acc;
     }, new Map<string, number>()),
     monthly: blog.reduce((acc, b) => {
-      const y = b.date.getFullYear()
+      const y = b.date.getFullYear();
       const m = b.date.getMonth() + 1;
       const v = acc.get(y) || new Map<number, number>();
       const vv = v.get(m);

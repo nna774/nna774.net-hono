@@ -1,4 +1,4 @@
-import { execSync } from 'child_process'
+import { execSync } from 'child_process';
 
 const revision = execSync('git log --pretty=format:%H -n1').toString().trim();
 const commitMessage = execSync('git log --pretty=format:%s -n1').toString().trim();
