@@ -27,7 +27,8 @@ tags: 旅行記
   ※三本松駅以西の近鉄線内でご利用になれます。<br />
   ※ケーブル線を含む。葛城山ロープウェイはご乗車になれません。
 </blockquote>
-![](/blog/2018/01/05/img_map.png)
+
+<img src='/blog/2018/01/05/img_map.png' />
 
 (全て[京阪奈初詣1dayチケット](http://www.kintetsu.co.jp/senden/Railway/Ticket/hatsumoude2018/keihanna.html))
 
