@@ -38,3 +38,11 @@ await fs.rename(outDir + '/blog/feed.xml.html', outDir + '/blog/feed.xml');
 
 // lifepng.js
 await fs.cp('./src/pages/lifepng/lifepng.js', outDir + '/lifepng/lifepng.js');
+
+// img/
+const imgFiles = await glob('./src/img/**/*');
+await Promise.all(imgFiles.map(async (file) => {
+  if ((await fs.stat(file)).isFile()) {
+    await fs.cp(file, file.replace('src/', outDir + '/'));
+  }
+}));
