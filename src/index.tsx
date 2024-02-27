@@ -69,6 +69,7 @@ const pages = [
   '/about/',
   '/OpenYo/',
   '/piet/',
+  '/projects/',
 ]; // TODO: grobにする。
 pages.map((path) => {
   app.get(path, async (c) => {
