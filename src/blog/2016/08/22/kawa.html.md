@@ -12,7 +12,7 @@ tags:
 <blockquote class="twitter-tweet" data-lang="ja"><p lang="und" dir="ltr"><a href="https://t.co/bUrepFhWQ6">pic.twitter.com/bUrepFhWQ6</a></p>&mdash; 友利のな(のの なな) (@nonamea774) <a href="https://twitter.com/nonamea774/status/766851073730490370">2016年8月20日</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-水素水を飲むことで内田真礼になれるということは[良く知られており](http://lineblog.me/uesaka_sumire/archives/5733261.html)、内田真礼になりたいことは広く知られているので、水素水を飲みました。
+水素水を飲むことで内田真礼になれるということは[良く知られており](https://web.archive.org/web/20230619030009/https://lineblog.me/uesaka_sumire/archives/5733261.html)、内田真礼になりたいことは広く知られているので、水素水を飲みました。
 水素水を飲むことにより、朝から頭痛だったものがたちどころに消え、どんどん気分が良くなっていったので、水素水には健康になる効果があります。
 これはおそらく前日水分を取らずに寝つづけていたものが水素水の効果により水分不足が解消されたものと思われます。
 水素水が健康に良いことは明らかなので、各位飲んで行きましょう。水素水であれば十分です。必要かどうかは、オッカムの剃刀でリストカットをして考えてください。

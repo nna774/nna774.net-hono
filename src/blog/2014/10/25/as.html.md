@@ -118,6 +118,7 @@ IXの一覧 > 日本国内の地域IX > Kyoto-One<br />
 <blockquote>
 NCA5（Network Community Area 5）は，正式名称を第五地区ネットワークコミュニティといい，主として“第5地区”の大学等を対象とするネットワークコミュニティです．
 </blockquote>
+
 [NCA5（第5地区ネットワークコミュニティ） » NCA5について](http://www.nca5.ad.jp/information/) より引用
 
 ページのフッタを見るに、京都大学学術情報メディアセンター北館 に事務局が置かれてるらしい。

@@ -71,7 +71,7 @@ OUTC
 
 やっぱりPietは手で描くものじゃないですね！
 
-より広くPietに関することは[Pietタグ](/blog/tags/piet.html)にあります。
+より広くPietに関することは[Pietタグ](/blog/tags/piet/)にあります。
 
 #### さらに宣伝
 

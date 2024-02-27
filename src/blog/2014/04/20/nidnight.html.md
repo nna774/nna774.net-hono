@@ -13,13 +13,14 @@ tags: 日常
 知恩院で行なわれる法然上人の法要のイベント(?) のうちの一つである。
 
 <iframe src="https://www.flickr.com/photos/nna774/13902685426/in/set-72157644071467422/player/" width="500" height="375" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
 [set](https://www.flickr.com/photos/nna774/sets/72157644071467422/)
 
 夜通し木魚を叩きつづけるイベントである(こんなふうに書いたら怒られそうだ)。
 
 普段は入れない知恩院三門に入ることができるイベントでもある。
 
-# かなり低く見積っても数万回のBeat 
+# かなり低く見積っても数万回のBeat
 
 三時ぐらいに知恩院に行って朝まで木魚を叩きつづけた。
 

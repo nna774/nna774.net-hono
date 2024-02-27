@@ -15,6 +15,7 @@ tags: アドベントカレンダー
 <blockquote class="twitter-tweet" lang="ja"><p lang="und" dir="ltr"><a href="https://t.co/QZc225eifr">pic.twitter.com/QZc225eifr</a></p>&mdash; 友利のな (@nonamea774) <a href="https://twitter.com/nonamea774/status/676729743811592192">2015, 12月 15</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 がすごくおいしかった。
+
 [ここ](http://4sq.com/1QIZHEv)のkhantyってお店です。
 
 [友利奈緒アドベントカレンダー](http://www.adventar.org/calendars/779)が近づいている。

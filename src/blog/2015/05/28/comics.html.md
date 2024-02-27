@@ -25,12 +25,14 @@ tags: Togetter
 <blockquote class="twitter-tweet" lang="ja"><p lang="ja" dir="ltr">Kindle for Android で 道満晴明 の ヴォイニッチホテル（３） (ヤングチャンピオン烈コミックス) を読み終わりました! <a href="http://t.co/hD5GJsSUsR">http://t.co/hD5GJsSUsR</a></p>&mdash; 北白川のな改ぽよ (@nonamea774) <a href="https://twitter.com/nonamea774/status/602582534124400641">2015, 5月 24</a></blockquote>
 最近3巻で最終巻が出てて、なんか気になったのでKindleで買ったらすごく良かった。<br />
 <blockquote class="twitter-tweet" lang="ja"><p lang="ja" dir="ltr">ヴォイニッチホテル三巻本当に良かったので、褐色ロリください。</p>&mdash; 北白川のな改ぽよ (@nonamea774) <a href="https://twitter.com/nonamea774/status/602942981981675520">2015, 5月 25</a></blockquote>
+
 このツイートをしたら、バイト先の社員([@drobune](https://twitter.com/drobune))にふぁぼられたので、一巻のリンクを投げつけたら、そのしばらく後に2巻も買っていたようだった。きっとあっちも褐色ロリが好きなんだと思う。<br />
 ここ最近で一番好きなマンガの座を暫くの間はキープし続けるように思う。
 どう良かったかを説明するのは困難なので詳しくは、google://ヴォイニッチホテル とかを参照してください。
 <blockquote>
 南海の島に建つホテルを主な舞台とした、多くの個性的な登場人物たちによって織り成される人間ドラマである。南国のゆったりした雰囲気の中、直接的な残酷シーンは少ないものの、殺人や麻薬売買なども描かれている。死んだはずの人間が生き返って喋ったり、過去に死んだはずの死者が現れたりと、オカルトチックな光景も多い。
 </blockquote>
+
 [jawp ヴォイニッチホテル(2015年5月19日 (火) 15:02; Platinum-phantom (会話 | 投稿記録) による版（日時)))](https://ja.wikipedia.org/w/index.php?title=%E3%83%B4%E3%82%A9%E3%82%A4%E3%83%8B%E3%83%83%E3%83%81%E3%83%9B%E3%83%86%E3%83%AB&oldid=55591208) <br />
 とにかく好きな感じであった。
 
