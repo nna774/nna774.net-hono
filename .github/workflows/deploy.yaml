@@ -4,6 +4,12 @@ on:
       - master
       - workflow
 
+name: deploy
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,3 +18,10 @@ jobs:
       - uses: oven-sh/setup-bun@v1
       - run: npm ci
       - run: npm run build
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-region: ap-northeast-1
+      - name: sync to s3
+        run: |
+          aws s3 cp dist/ s3://nna774.net/
