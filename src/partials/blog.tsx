@@ -231,6 +231,22 @@ export const BlogLinks = ({blogInfo, canonical, articles, title}: {blogInfo: Blo
   </BlogBody>
 );
 
+export const ArticleChain = (pastArticle?: BlogType, futureArticle?: BlogType) => (
+  <p class='articleChain'>
+    { pastArticle ? <a href={pastArticle.path} >&lt;&lt; 過去の記事({pastArticle.title})</a> : '<< 過去の記事' }
+    { ' | ' }
+    { futureArticle ? <a href={futureArticle.path} >未来の記事({futureArticle.title}) &gt;&gt;</a> : '未来の記事 >>' }
+  </p>
+);
+
+export const PageChain = (pageNumber: number, maxPage: number, hasPast: boolean, hasFuture: boolean) => (
+  <p class='pageChain'>
+    { hasPast ? <a href={`/blog/page/${pageNumber + 1}/`} >過去のページ</a> : '過去のページ' }{ ' ' }
+    Page {pageNumber} of {maxPage}{ ' ' }
+    { hasFuture ? <a href={`/blog/page/${pageNumber - 1}/`} >未来のページ</a> : '未来のページ' }
+  </p>
+);
+
 export const makeInfo = (blog: BlogType[]): BlogInfoType => {
   return {
     blog: blog,

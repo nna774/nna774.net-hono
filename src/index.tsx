@@ -9,7 +9,7 @@ import RSS from 'rss';
 
 import { renderer, blogRenderer, baseURI } from './renderer';
 
-import { BlogBody, BlogArticle, BlogType, makeInfo, BlogLinks, tag_path } from './partials/blog';
+import { BlogBody, BlogArticle, BlogType, makeInfo, BlogLinks, tag_path, ArticleChain, PageChain } from './partials/blog';
 
 type Page = {
   metadata: Metadata;
@@ -115,14 +115,6 @@ const blogInfo = makeInfo(blog);
 
 const canonical = (c: any) => 'https://nna774.net' + c.req.path;
 
-const ArticleChain = (pastArticle?: BlogType, futureArticle?: BlogType) => (
-  <p class='articleChain'>
-    { pastArticle ? <a href={pastArticle.path} >&lt;&lt; 過去の記事({pastArticle.title})</a> : '<< 過去の記事' }
-    { ' | ' }
-    { futureArticle ? <a href={futureArticle.path} >未来の記事({futureArticle.title}) &gt;&gt;</a> : '未来の記事 >>' }
-  </p>
-);
-
 blog.map((article, i) => {
   app.get(article.path, (c) => {
     const chain = ArticleChain(i !== blog.length ? blog[i + 1]: undefined, i !== 0 ? blog[i - 1] : undefined);
@@ -135,14 +127,6 @@ blog.map((article, i) => {
       { title: article.title, path: c.req.path, ephemeral: false });
   });
 });
-
-const PageChain = (pageNumber: number, maxPage: number, hasPast: boolean, hasFuture: boolean) => (
-  <p class='pageChain'>
-    { hasPast ? <a href={`/blog/page/${pageNumber + 1}/`} >過去のページ</a> : '過去のページ' }{ ' ' }
-    Page {pageNumber} of {maxPage}{ ' ' }
-    { hasFuture ? <a href={`/blog/page/${pageNumber - 1}/`} >未来のページ</a> : '未来のページ' }
-  </p>
-);
 
 const PER_PAGE = 5;
 const maxPage = Math.ceil(blog.length/PER_PAGE);
