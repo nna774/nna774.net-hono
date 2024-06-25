@@ -11,8 +11,8 @@ export const HostOn = () => (
       このページはGitHubの<a href='https://github.com/nna774/nna774.net-hono'>nna774/nna774.net-hono</a>にレポジトリがあります。<br />
     </p>
     <p id='_commitHash'>
-      このページのビルド時のCommit Hashは<a href={'https://github.com/nna774/nna774.net-hono/tree/' + revision}>{revision}</a>です。<br />
-      Commit メッセージは"{commitMessage}"です。
+      このページのビルド時のcommit hashは<a href={'https://github.com/nna774/nna774.net-hono/tree/' + revision}>{revision}</a>です。<br />
+      commit メッセージは"{commitMessage}"です。
     </p>
     <p id='_buildDate'>
       ビルド時刻は{Date()}です。
