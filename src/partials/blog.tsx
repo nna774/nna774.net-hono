@@ -233,9 +233,13 @@ export const BlogLinks = ({blogInfo, canonical, articles, title}: {blogInfo: Blo
 
 export const ArticleChain = (pastArticle?: BlogType, futureArticle?: BlogType) => (
   <p class='articleChain'>
-    { pastArticle ? <a href={pastArticle.path} >&lt;&lt; 過去の記事({pastArticle.title})</a> : '<< 過去の記事' }
+    <span style={{width: '50%', display: 'inline'}}>
+      { pastArticle ? <a href={pastArticle.path} >&lt;&lt; 過去の記事({pastArticle.title})</a> : '<< 過去の記事' }
+    </span>
     { ' | ' }
-    { futureArticle ? <a href={futureArticle.path} >未来の記事({futureArticle.title}) &gt;&gt;</a> : '未来の記事 >>' }
+    <span style={{width: '50%', display: 'inline'}}>
+      { futureArticle ? <a href={futureArticle.path} >未来の記事({futureArticle.title}) &gt;&gt;</a> : '未来の記事 >>' }
+    </span>
   </p>
 );
 
