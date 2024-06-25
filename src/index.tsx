@@ -67,7 +67,6 @@ app.get('/blog/:image{.+\\.(png|jpg|jpeg|JPG|hs|pdf|ogg|)$}', serveStatic({ root
 
 // define html pages routes
 const pages = [
-  '/',
   '/about/',
   '/OpenYo/',
   '/piet/',
@@ -82,6 +81,69 @@ pages.map(async (path) => {
   app.get(path, (c) => {
     return c.render(raw(p.content), { title: p.metadata.title, path: c.req.path, ephemeral: false, customJS: p.metadata.customJS });
   });
+});
+
+const index = () => (
+  <div id='mainWrap' class='col-md-12'>
+    <section>
+        <h2 id='pageName'>index of nna774.net</h2>
+        <div class ='row row-eq-height wrap'>
+          <section class='glider col-xs-6 col-sm-3 col-md-2 select'>
+            <a href='https://scrapbox.io/rebuild-kitashirakawa/'>
+              <h3>rebuild-kitashirakawa</h3>
+              こっちが日記となった。なんでもこちらに書いちゃうので、→ブログが更新されない……。
+            </a>
+          </section>
+          <section class='glider col-xs-6 col-sm-3 col-md-2 select'>
+            <a href='/blog/'>
+              <h3>Blog</h3>
+              <del>がんばって書きます……。</del><br />
+              <ins>最近更新していない。</ins>
+            </a>
+          </section>
+          <section class='piet col-xs-6 col-sm-3 col-md-2 select'>
+            <a href='/piet/'>
+              <h3>Piet</h3>
+              pietについていろいろ書きます。<br />
+              <ins>最近更新していない。</ins>
+            </a>
+          </section>
+          <section class='glider col-xs-6 col-sm-3 col-md-2 select'>
+            <a href='/projects/'>
+              <h3>Projects</h3>
+              最近更新していないもの
+            </a>
+          </section>
+        </div>
+      </section>
+      <section>
+      <h2 id='dare'>誰？</h2>
+      <em>久我山菜々 &lt;nonamea774@gmail.com&gt;</em>
+      <ul>
+        <li>
+          Accounts:
+          <ul>
+            <li>Github: <a href='https://github.com/nna774'>nna774</a></li>
+            <li>Twitter: <a href='https://twitter.com/nonamea774'>@nonamea774</a></li>
+            <li>Keybase: <a href='https://keybase.io/nona'>nona</a></li>
+            <li>Steam: <a href='https://steamcommunity.com/id/nona7/'>nonamea.774</a></li>
+            <li>Pixiv: <a href='https://pixiv.me/nonamea774'>nonamea774</a></li>
+          </ul>
+        </li>
+        <li>
+          Links:
+          <ul>
+            <li>Kyoto University Micro Computer Club (KMC): <a href='https://www.kmc.gr.jp/'>https://www.kmc.gr.jp/</a></li>
+            <li>欲しいものリスト: <a href='https://www.amazon.co.jp/hz/wishlist/ls/1BXEUWO6IYT1Y'>Amazon</a></li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+  </div>
+);
+
+app.get('/', (c) => {
+  return c.render(index());
 });
 
 // customJS
