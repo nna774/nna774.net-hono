@@ -123,11 +123,12 @@ const index = () => (
         <li>
           Accounts:
           <ul>
-            <li>Github: <a href='https://github.com/nna774'>nna774</a></li>
-            <li>Twitter: <a href='https://twitter.com/nonamea774'>@nonamea774</a></li>
-            <li>Keybase: <a href='https://keybase.io/nona'>nona</a></li>
-            <li>Steam: <a href='https://steamcommunity.com/id/nona7/'>nonamea.774</a></li>
-            <li>Pixiv: <a href='https://pixiv.me/nonamea774'>nonamea774</a></li>
+            <li>Github: <a href='https://github.com/nna774' rel='me'>nna774</a></li>
+            <li>Twitter: <a href='https://twitter.com/nonamea774' rel='me'>@nonamea774</a></li>
+            <li>Fediverse: <a href='https://s.nna774.net/u/nana' rel='me'>@nana@s.nna774.net</a></li>
+            <li>Keybase: <a href='https://keybase.io/nona' rel='me'>nona</a></li>
+            <li>Steam: <a href='https://steamcommunity.com/id/nona7/' rel='me'>nonamea.774</a></li>
+            <li>Pixiv: <a href='https://pixiv.me/nonamea774' rel='me'>nonamea774</a></li>
           </ul>
         </li>
         <li>
