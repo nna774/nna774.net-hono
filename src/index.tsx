@@ -144,7 +144,7 @@ const index = () => (
 );
 
 app.get('/', (c) => {
-  return c.render(index());
+  return c.render(index(), { path: c.req.path, ephemeral: false });
 });
 
 // customJS
