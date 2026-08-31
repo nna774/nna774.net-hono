@@ -20,6 +20,9 @@ const Footer = ({canonical, ephemeral}: {canonical: string, ephemeral: boolean})
 
 export const renderer = jsxRenderer(
   ({ children, title, path, ephemeral, customJS }) => {
+    if (path === undefined) {
+      throw new Error('renderer: path が渡されていない');
+    }
     return (
       <html lang='ja' prefix='og: http://ogp.me/ns#'>
         <head>
@@ -56,6 +59,9 @@ export const renderer = jsxRenderer(
 
 export const blogRenderer = jsxRenderer(
   ({ children, title, path, ephemeral }) => {
+    if (path === undefined) {
+      throw new Error('blogRenderer: path が渡されていない');
+    }
     return (
       <html lang='ja' prefix='og: http://ogp.me/ns#'>
         <head>
